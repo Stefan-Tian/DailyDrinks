@@ -1,68 +1,25 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to use
 
-In the project directory, you can run:
+- When first entering the homepage, you'll see a list of drinks and a form to create new orders.
+- Drink-name and drink-price fields are mandatory, if not specified, the form will show errors below the fields.
+- The note(description) field is optional.
+- Each order is editable and deletable, simply click the top right buttons of the card. (Originally, I used material-design-icons for edit and delete icons. But somehow codeSandbox can't seem do download this dependency.)
 
-### `yarn start`
+## Code
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### DrinksList Component
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- I use useReducer instead of useState to manage drinks list data so that actions to change the data can be more predictable since they're pre-defined.
+- I use localStorage to store data and update them in the reducer. However, when working with databases, I won't put API calls in reducers, since to my understanding, reducer should not make side-effects, meaning that it should always return the same output if the input hasn't changed.
 
-### `yarn test`
+### DrinkAddForm and DrinkEditForm
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- I normally use **Formik** for handling forms and **Yup** for input validation. But since it's a small project, I decide to implement it myself.
+- I use useRef instead of useState to manage input data because when using refs, changing the input won't cause re-renders.
 
-### `yarn build`
+### Styles
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- I put all drinks-related styles in the same file called `styles.js`.
+- If the project gets bigger, I tend to group components and styles by category. In this case, put all drinks-related components and styles into a folder in `/components/drinks`.

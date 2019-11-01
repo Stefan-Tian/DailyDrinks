@@ -50,7 +50,7 @@ export const DrinkCardDescription = styled.p`
 
 export const Icon = styled.i`
   font-size: 16px;
-  color: ${lightGrey};
+  color: ${({ color }) => (color ? color : lightGrey)};
   position: absolute;
   cursor: pointer;
 
@@ -136,8 +136,9 @@ export const FormSubmitBtn = styled(Button)`
 export const FormSecondaryBtn = styled(Button)`
   font-style: italic;
   color: ${blueSecondary};
+  background-color: #fff;
   border-bottom: 3px solid ${blueLightGrey};
-  padding: 0;
+  padding: 2px;
   line-height: 10px;
   margin-right: 30px;
 `;

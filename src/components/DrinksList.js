@@ -3,27 +3,32 @@ import Drink from './Drink';
 import DrinkAddForm from './DrinkAddForm';
 import { DrinkListTitle } from './styles';
 
-const initialState = [
-  {
-    name: 'Daiquiri',
-    price: 200,
-    description:
-      'The original daiquiri is an extremely simple recipe that requires just three common ingredients. It is also one of the freshest drinks you can make and an essential rum cocktail everyone should know and taste.'
-  },
-  {
-    name: 'Bloody Margarita',
-    price: 250,
-    description:
-      "When you see 'bloody' in a drink's name you'll likely think of a tomato juice cocktail like the Bloody Mary. That is definitely not the case for this bloody margarita. Instead, it is a blood orange margarita that features the wonderful flavor of a blood red citrus fruit."
-  }
-];
-
+let initialState = localStorage.getItem('drinks');
+if (!initialState) {
+  initialState = [
+    {
+      name: 'Daiquiri',
+      price: 200,
+      description: 'Extra alcohol'
+    },
+    {
+      name: 'Bloody Margarita',
+      price: 250,
+      description: "Make sure you're not ordering Bloody Mary"
+    }
+  ];
+} else {
+  initialState = JSON.parse(initialState);
+}
 const reducer = (state, action) => {
+  let newState;
   switch (action.type) {
     case 'add-drink':
-      return [action.payload, ...state];
+      newState = [action.payload, ...state];
+      localStorage.setItem('drinks', JSON.stringify(newState));
+      return newState;
     case 'edit-drink':
-      return state.map((drink, index) => {
+      newState = state.map((drink, index) => {
         if (index !== action.payload.index) {
           return drink;
         }
@@ -33,8 +38,12 @@ const reducer = (state, action) => {
           ...action.payload.drinkInfo
         };
       });
+      localStorage.setItem('drinks', JSON.stringify(newState));
+      return newState;
     case 'delete-drink':
-      return state.filter((drink, index) => index !== action.payload);
+      newState = state.filter((drink, index) => index !== action.payload);
+      localStorage.setItem('drinks', JSON.stringify(newState));
+      return newState;
     default:
       throw new Error('no such action type!');
   }

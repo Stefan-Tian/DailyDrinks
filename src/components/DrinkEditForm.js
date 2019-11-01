@@ -77,7 +77,8 @@ const DrinkEditForm = ({ name, price, description, closeEdit, editDrink }) => {
           <FormInput
             type="text"
             ref={editDescription}
-            placeholder="describe this drink a little bit..."
+            defaultValue={editDescription.current}
+            placeholder="extra note for your order..."
             fontWeight={600}
           />
         </FormInputDiv>
